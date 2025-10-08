@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+@theme {
+  /* Primary */
+  --color-brand-primary:                #0EA1FF;   /* main accent */
+  --color-brand-primary-gradient-from:  #0EA1FF;   /* main accent */
+  --color-brand-primary-gradient-to:    #0EA1FF;   /* main accent */
+  --color-brand-primary-container:      #003355;   /* darker container */
+  --color-brand-primary-fixed-dim:      #66CFFF;   /* lighter version */
+  --color-brand-primary-fixed:          #99DDFF;
+  --color-brand-on-primary-container:   #CCEFFF;
+  --color-brand-on-primary-fixed-variant:#FFFFFF;
+  --color-brand-on-primary-fixed:       #001A26;
+  --color-brand-on-primary:             #001A26;
+
+  /* Secondary */
+  --color-brand-secondary:                    #3757FA;   /* deep brand-primary */
+  --color-brand-secondary-container:          #1A1F40;   /* darker brand-primary container */
+  --color-brand-secondary-fixed-dim:          #8A9CFF;   /* lighter */
+  --color-brand-secondary-fixed:              #B0BDFF;
+  --color-brand-on-secondary-container:       #E2E6FF;
+  --color-brand-on-secondary-fixed-variant:   #FFFFFF;
+  --color-brand-on-secondary-fixed:           #0D1026;
+  --color-brand-on-secondary:                 #FFFFFF;
+
+  /* Tertiary (accent, complementary of blues → teal/green) */
+  --color-brand-tertiary:                     #00D6A1;
+  --color-brand-tertiary-container:           #003D33;
+  --color-brand-tertiary-fixed-dim:           #4BEBC8;
+  --color-brand-tertiary-fixed:               #77F0D9;
+  --color-brand-on-tertiary-container:        #C2FFF0;
+  --color-brand-on-tertiary-fixed-variant:    #FFFFFF;
+  --color-brand-on-tertiary-fixed:            #001C16;
+  --color-brand-on-tertiary:                  #001C16;
+
+  /* Error */
+  --color-brand-error:                        #F44336;
+  --color-brand-error-container:              #410002;
+  --color-brand-on-error-container:           #FFDAD6;
+  --color-brand-on-error:                     #FFFFFF;
+
+  /* Surface */
+  --color-brand-surface:                      var(--color-gray-900);
+  --color-brand-surface-dim:                  var(--color-gray-800);
+  --color-brand-surface-bright:               var(--color-gray-700);
+  --color-brand-surface-container-lowest:     #000000;
+  --color-brand-surface-container-low:        #1A1A1A;
+  --color-brand-surface-container:            #222222;
+  --color-brand-surface-container-high:       #2C2C2C;
+  --color-brand-surface-container-highest:    #333333;
+  --color-brand-on-surface:                   #E0E0E0;
+  --color-brand-on-surface-variant:           #A6A6A6;
+  --color-brand-outline:                      #3D3D3D;
+  --color-brand-outline-variant:              #5C5C5C;
+
+  /* Inverse */
+  --color-brand-inverse-surface:              #E0E0E0;
+  --color-brand-inverse-primary:              #0EA1FF;
+  --color-brand-inverse-on-surface:           #1A1A1A;
+
+  /* Miscellaneous */
+  --color-brand-scrim:                        #000000;
+  --color-brand-shadow:                       #000000;
+}
+
+body {
+  /* Example: smooth font rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+main, footer, header {
+  -webkit-animation: fadein 1.8s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 1.8s; /* Firefox < 16 */
+  -ms-animation: fadein 1.8s; /* Internet Explorer */
+  -o-animation: fadein 1.8s; /* Opera < 12.1 */
+  animation: fadein 1.8s;
+}
+
+/* src/styles/view-transitions.css */
+::view-transition-old(root) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+::view-transition-new(root) {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+::view-transition-group(*) {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
