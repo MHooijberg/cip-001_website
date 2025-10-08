@@ -1,0 +1,96 @@
+---
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import "../styles/global.css";
+const { title } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
+	<link rel="icon" type="image/svg+xml" href="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=blue&shade=500" />
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{title} | Nox Cyber Security Consultancy</title>
+	<!-- TailwindUI Elements -->
+	<script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
+</head>
+<body class="bg-brand-surface text-brand-on-surface min-h-screen">
+	<Header />
+	<main class="isolate">
+		<slot />
+	</main>
+	<Footer />
+	<!-- jQuery CDN -->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<!-- Popover JS -->
+	<script>
+		(() => {
+			const lgQuery = '(min-width: 1024px)'; // Tailwind's "lg" breakpoint
+			const isDesktop = () => window.matchMedia(lgQuery).matches;
+			
+			const closeAll = () => {
+				document.querySelectorAll('el-popover').forEach(p => p.setAttribute('data-closed', ''));
+				document.querySelectorAll('[popovertarget]').forEach(b => b.setAttribute('aria-expanded', 'false'));
+			};
+			
+			// Ensure popovers start closed if they don't explicitly have a state
+			document.querySelectorAll('el-popover').forEach(p => {
+				if (!p.hasAttribute('data-closed') && !p.classList.contains('show')) {
+					p.setAttribute('data-closed', '');
+				}
+			});
+			
+			// Toggle handler (delegated)
+			document.addEventListener('click', (e) => {
+				const btn = e.target.closest('[popovertarget]');
+				if (!btn) return;
+				
+				// desktop-only behavior
+				if (!isDesktop()) return;
+				
+				const id = btn.getAttribute('popovertarget');
+				if (!id) return;
+				const pop = document.getElementById(id);
+				if (!pop) return;
+				
+				const currentlyOpen = !pop.hasAttribute('data-closed');
+				
+				// close everything first (so only one open at a time)
+				closeAll();
+				
+				if (!currentlyOpen) {
+					// open this one
+					pop.removeAttribute('data-closed');
+					btn.setAttribute('aria-expanded', 'true');
+					// optional: focus first focusable inside popover
+					const firstFocusable = pop.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
+					if (firstFocusable) firstFocusable.focus();
+				} else {
+					// already open -> we closed with closeAll()
+					btn.setAttribute('aria-expanded', 'false');
+				}
+			});
+			
+			// click outside to close (desktop)
+			document.addEventListener('click', (e) => {
+				if (!isDesktop()) return;
+				if (e.target.closest('el-popover')) return;
+				if (e.target.closest('[popovertarget]')) return;
+				closeAll();
+			});
+			
+			// close on Escape
+			document.addEventListener('keydown', (e) => {
+				if (!isDesktop()) return;
+				if (e.key === 'Escape') closeAll();
+			});
+			
+			// Optional: close popovers when viewport drops below lg
+			window.matchMedia(lgQuery).addEventListener?.('change', (ev) => {
+				if (!ev.matches) closeAll();
+			});
+		})();
+	</script>
+</body>
+</html>
