@@ -5,6 +5,7 @@ services:
       dockerfile: Dockerfile
     # Ensure container dev server binds to 0.0.0.0
     command: npm run dev -- --host 0.0.0.0
+    env_file: ".env"
     ports:
       - "4321:4321"
     # Mount project into /workspace so edits reflect immediately.
